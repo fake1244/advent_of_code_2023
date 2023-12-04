@@ -74,6 +74,38 @@ pub fn solve() -> SolutionPair {
     // PART 2
     let mut sol2: u64 = 0;
     let mut gear_numbers: HashMap<(usize, usize), HashSet<u64>> = HashMap::new();
+
+    // for (row, line) in input.lines().enumerate(){
+    //     for (col, c) in line.chars().enumerate(){
+    //         if c == '*' {
+    //             gear_numbers.insert((row, col), HashSet::new());
+    //         }
+    //     }
+    // }
+    // println!("{:?}", gear_numbers);
+
+    // for (row, line) in input.lines().enumerate(){
+    //     let mut number = String::from("");
+    //     let mut star_coord = Vec::new();
+
+    //     for (col, c) in line.chars().enumerate(){
+    //         if c.is_digit(10) {
+    //             number.push(c);
+    //             // save star coord
+    //         } else {
+    //             if number != String::from("") {
+    //                 // parse number
+    //                 // map star coord to this;
+    //                 println!("{}", number);
+    //                 number = String::from("");
+    //                 let mut star_coord = Vec::new();
+    //             }
+    //         }
+    //     }   
+
+    // }
+
+
     for (row, line) in input.lines().enumerate(){
         let row = row.clone();
         let mut prev = "";
@@ -100,87 +132,68 @@ pub fn solve() -> SolutionPair {
                 }
                 connected = false;
                 curr_number = String::from("");
+                star_coord = Vec::new();
                 continue;
             }
 
             if col == 0 {
                 if prev != "" {
                     if check_star(prev.chars().nth(col).unwrap()){
-                        if prev.chars().nth(col).unwrap() == '*' {
-                            star_coord.push((row - 1, col));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row - 1, col));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                     if check_star(prev.chars().nth(col + 1).unwrap()) {
-                        if prev.chars().nth(col + 1).unwrap() == '*' {
-                            star_coord.push((row - 1, col + 1));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row - 1, col + 1));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                 }
                 if next != "" {
                     if check_star(next.chars().nth(col).unwrap()){
-                        if next.chars().nth(col).unwrap() == '*' {
-                            star_coord.push((row + 1, col));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row + 1, col));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                     if check_star(next.chars().nth(col + 1).unwrap()) {
-                        if next.chars().nth(col + 1).unwrap() == '*' {
-                            star_coord.push((row + 1, col + 1));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row + 1, col + 1));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }   
                 }
                 if check_star(line.chars().nth(col + 1).unwrap()){
-                    if line.chars().nth(col + 1).unwrap() == '*' {
-                        star_coord.push((row, col + 1));
-                        // println!("{} {}", row, col);
-                    }
+                    star_coord.push((row, col + 1));
+                    // println!("{} {}", row, col);
                     connected = true;
                 }
             } else if col == line.chars().count() - 1 {
                 if prev != "" {
                     if check_star(prev.chars().nth(col).unwrap()){
-                        if prev.chars().nth(col).unwrap() == '*' {
-                            star_coord.push((row - 1, col));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row - 1, col));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                     if check_star(prev.chars().nth(col - 1).unwrap()) {
-                        if prev.chars().nth(col - 1).unwrap() == '*' {
-                            star_coord.push((row - 1, col - 1));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row - 1, col - 1));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                 }
                 if next != "" {
                     if check_star(next.chars().nth(col).unwrap()){
-                        if next.chars().nth(col).unwrap() == '*' {
-                            star_coord.push((row + 1, col));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row + 1, col));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                     if check_star(next.chars().nth(col - 1).unwrap()) {
-                        if next.chars().nth(col - 1).unwrap() == '*' {
-                            star_coord.push((row + 1, col - 1));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row + 1, col - 1));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }   
                 }
                 if check_star(line.chars().nth(col - 1).unwrap()){
-                    if line.chars().nth(col - 1).unwrap() == '*' {
-                        star_coord.push((row, col - 1));
-                        // println!("{} {}", row, col);
-                    }
+                    star_coord.push((row, col - 1));
+                    // println!("{} {}", row, col);
                     connected = true;
                 }
                 if connected {
@@ -193,71 +206,58 @@ pub fn solve() -> SolutionPair {
                 }
                 connected = false;
                 curr_number = String::from("");
+                
+                star_coord = Vec::new();
             } else {
                 if prev != "" {
                     if check_star(prev.chars().nth(col).unwrap()){
-                        if prev.chars().nth(col).unwrap() == '*' {
-                            star_coord.push((row - 1, col));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row - 1, col));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                     if check_star(prev.chars().nth(col - 1).unwrap()) {
-                        if prev.chars().nth(col - 1).unwrap() == '*' {
-                            star_coord.push((row - 1, col - 1));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row - 1, col - 1));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                     if check_star(prev.chars().nth(col + 1).unwrap()) {
-                        if prev.chars().nth(col + 1).unwrap() == '*' {
-                            star_coord.push((row - 1, col + 1));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row - 1, col + 1));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                 }
                 if next != "" {
                     if check_star(next.chars().nth(col).unwrap()){
-                        if next.chars().nth(col).unwrap() == '*' {
-                            star_coord.push((row + 1, col));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row + 1, col));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }
                     if check_star(next.chars().nth(col - 1).unwrap()) {
-                        if next.chars().nth(col - 1).unwrap() == '*' {
-                            star_coord.push((row + 1, col - 1));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row + 1, col - 1));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }   
                     if check_star(next.chars().nth(col + 1).unwrap()) {
-                        if next.chars().nth(col + 1).unwrap() == '*' {
-                            star_coord.push((row + 1, col + 1));
-                            // println!("{} {}", row, col);
-                        }
+                        star_coord.push((row + 1, col + 1));
+                        // println!("{} {}", row, col);
                         connected = true;
                     }   
                 }
                 if check_star(line.chars().nth(col - 1).unwrap()){
-                    if line.chars().nth(col - 1).unwrap() == '*' {
-                        star_coord.push((row, col - 1));
-                        // println!("{} {}", row, col);
-                    }
+                    star_coord.push((row, col - 1));
+                    // println!("{} {}", row, col);
                     connected = true;
                 }
                 if check_star(line.chars().nth(col + 1).unwrap()){
-                    if line.chars().nth(col + 1).unwrap() == '*' {
-                        star_coord.push((row, col + 1));
-                        // println!("{} {}", row, col);
-                    }
+                    star_coord.push((row, col + 1));
+                    // println!("{} {}", row, col);
                     connected = true;
                 }
             }
         }
     }
 
+    println!("{:?}", gear_numbers);
     for (_, numbers) in gear_numbers.into_iter() {
         if numbers.len() == 2 {
             let mut prod = 1;
