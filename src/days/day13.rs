@@ -54,8 +54,8 @@ fn solve_pattern(pattern: &Vec<Vec<char>>, part2: bool, last_val: (usize, usize)
 
 fn fix_and_solve_pattern(pattern: Vec<Vec<char>>, last_res: (usize, usize)) -> (usize, usize) {
     let mut new_pattern = pattern.clone();
-    for r in start_row..pattern.len() {
-        for c in start_col..pattern[r].len() {
+    for r in 0..pattern.len() {
+        for c in 0..pattern[r].len() {
             if pattern[r][c] == '#' {
                 new_pattern[r][c] = '.';
                 let new_res = solve_pattern(&new_pattern, true, last_res);
